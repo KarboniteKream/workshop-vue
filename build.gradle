@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group 'io.kream'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.linecorp.armeria:armeria:0.99.6'
+    implementation 'com.linecorp.armeria:armeria-logback:0.99.6'
+    implementation 'com.linecorp.armeria:armeria-rxjava2:0.99.6'
+
+    runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
+    runtimeOnly 'org.slf4j:log4j-over-slf4j:1.7.30'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += '-parameters'
+}
