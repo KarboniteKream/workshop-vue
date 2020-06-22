@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'com.github.node-gradle.node' version '2.2.4'
 }
 
 group 'io.kream'
@@ -18,6 +20,21 @@ dependencies {
     runtimeOnly 'org.slf4j:log4j-over-slf4j:1.7.30'
 }
 
+application {
+    mainClass = 'io.kream.workshop.vue.Main'
+}
+
 tasks.withType(JavaCompile) {
     options.compilerArgs += '-parameters'
 }
+
+node {
+    download = true
+    version = '12.18.1'
+    npmVersion = '6.14.5'
+}
+
+npm_run_build.dependsOn npmInstall
+npm_run_serve.dependsOn npmInstall
+
+processResources.dependsOn npm_run_build

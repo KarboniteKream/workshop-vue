@@ -3,6 +3,7 @@ package io.kream.workshop.vue;
 import com.linecorp.armeria.server.Server;
 import com.linecorp.armeria.server.ServerBuilder;
 import com.linecorp.armeria.server.docs.DocService;
+import com.linecorp.armeria.server.file.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,7 @@ public class Main {
         final Server server = sb
                 .http(8080)
                 .serviceUnder("/docs", new DocService())
+                .serviceUnder("/", FileService.of(Main.class.getClassLoader(), "static"))
                 .build();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
