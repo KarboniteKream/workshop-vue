@@ -87,6 +87,12 @@ export default {
       useCustomClass: false,
     };
   },
+  created() {
+    console.log("Initializing...");
+  },
+  mounted() {
+    console.log("Done!");
+  },
   methods: {
     superSafeEncrypt(event) {
       this.password = event.target.value.split('').map(() => '*').join('');

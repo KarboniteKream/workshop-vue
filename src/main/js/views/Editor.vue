@@ -33,10 +33,22 @@
       </tbody>
     </table>
 
-    <button @click="addItem()">+ New item</button>
-    <br />
-    <button @click="items = []">Clear!</button>
+    <div>
+      <button @click="addItem()">+ New item</button>
+      <br />
+      <button @click="items = []">Clear!</button>
+    </div>
+
+    <div class="input-box">
+      <label>Devices:</label>
+      <template v-for="device of devices.list">
+        <input :id="device" type="checkbox" :value="device" v-model="devices.value" />
+        <label :for="device">{{ device }}</label>
+      </template>
+    </div>
+
     <pre>{{ items }}</pre>
+    <pre>{{ devices.value }}</pre>
   </div>
 </template>
 
@@ -68,6 +80,13 @@ export default {
           value: 'Value 3',
         },
       ],
+      devices: {
+        value: [],
+        list: [
+          'ANDROID',
+          'IOS',
+        ],
+      },
     };
   },
   methods: {
