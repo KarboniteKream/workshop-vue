@@ -1,13 +1,10 @@
 <template>
   <div>
-    <h1>Editor<span v-if="formId"> (Form ID: {{ formId }})</span></h1>
+    <h1>Editor</h1>
 
     <div class="input-box">
-      <shouting-input label="ID" v-model="formId">
+      <shouting-input>
         <strong>This is the form ID!</strong>
-        <shouting-input label="Same ID" v-model="formId">
-          <strong>This is the same form ID!</strong>
-        </shouting-input>
       </shouting-input>
     </div>
 
@@ -23,35 +20,52 @@
       </thead>
 
       <tbody>
-        <tr v-for="(item, index) of items" :key="item.id">
-          <td>{{ item.id }}</td>
-          <td><input v-model="item.name" /></td>
-          <td><input v-model="item.value" /></td>
+        <tr>
+          <td>1</td>
+          <td><input value="Item 1" /></td>
+          <td><input value="Value 1" /></td>
           <td>
-            <button v-if="index > 0" @click="switchItems(index, index - 1)">&uarr;</button>
-            <button v-if="index < items.length - 1" @click="switchItems(index, index + 1)">&darr;</button>
-            <button @click="items.splice(index, 1)">&times;</button>
+            <button>&uarr;</button>
+            <button>&darr;</button>
+            <button>&times;</button>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><input value="Item 2" /></td>
+          <td><input value="Value 2" /></td>
+          <td>
+            <button>&uarr;</button>
+            <button>&darr;</button>
+            <button>&times;</button>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><input value="Item 3" /></td>
+          <td><input value="Value 3" /></td>
+          <td>
+            <button>&uarr;</button>
+            <button>&darr;</button>
+            <button>&times;</button>
           </td>
         </tr>
       </tbody>
     </table>
 
     <div>
-      <button @click="addItem()">+ New item</button>
+      <button>+ New item</button>
       <br />
-      <button @click="items = []">Clear!</button>
+      <button>Clear!</button>
     </div>
 
     <div class="input-box">
       <label>Devices:</label>
-      <template v-for="device of devices.list">
-        <input :id="device" type="checkbox" :value="device" v-model="devices.value" />
-        <label :for="device">{{ device }}</label>
-      </template>
+      <input id="ANDROID" type="checkbox" value="ANDROID" />
+      <label for="ANDROID">ANDROID</label>
+      <input id="IOS" type="checkbox" value="IOS" />
+      <label for="IOS">IOS</label>
     </div>
-
-    <pre>{{ items }}</pre>
-    <pre>{{ devices.value }}</pre>
   </div>
 </template>
 
@@ -65,7 +79,6 @@ export default {
   },
   data() {
     return {
-      formId: '',
       items: [
         {
           id: 1,
@@ -91,28 +104,6 @@ export default {
         ],
       },
     };
-  },
-  watch: {
-    items(newValue, oldValue) {
-      const idSum = newValue.reduce((acc, item) => acc + item.id, 0);
-      console.log(`Sum of IDs is ${idSum}`);
-    },
-  },
-  methods: {
-    switchItems(idx1, idx2) {
-      const temp = this.items[idx1];
-      this.$set(this.items, idx1, this.items[idx2]);
-      this.$set(this.items, idx2, temp);
-    },
-    addItem() {
-      const id = Number(Math.random().toString().slice(2, 6));
-
-      this.items.push({
-        id,
-        name: `Item ${id}`,
-        value: `Value ${id}`,
-      });
-    },
   },
 }
 </script>

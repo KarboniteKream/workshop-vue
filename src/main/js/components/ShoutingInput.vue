@@ -1,11 +1,8 @@
 <template>
   <div>
-    <label class="label" :for="id">{{ label }}</label>
-    <input :id="id"
-           :value="value"
-           @input="startShouting($event.target.value)"
-           :disabled="disabled" />
-    <span class="hint">Hint: <slot></slot></span>
+    <label class="label" for="input">ID</label>
+    <input id="input" />
+    <span class="hint">Hint: <strong>This is the form ID!</strong></span>
   </div>
 </template>
 
