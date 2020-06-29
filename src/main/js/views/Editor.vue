@@ -5,6 +5,9 @@
     <div class="input-box">
       <shouting-input label="ID" v-model="formId">
         <strong>This is the form ID!</strong>
+        <shouting-input label="Same ID" v-model="formId">
+          <strong>This is the same form ID!</strong>
+        </shouting-input>
       </shouting-input>
     </div>
 
@@ -89,6 +92,12 @@ export default {
       },
     };
   },
+  watch: {
+    items(newValue, oldValue) {
+      const idSum = newValue.reduce((acc, item) => acc + item.id, 0);
+      console.log(`Sum of IDs is ${idSum}`);
+    },
+  },
   methods: {
     switchItems(idx1, idx2) {
       const temp = this.items[idx1];
@@ -96,14 +105,14 @@ export default {
       this.$set(this.items, idx2, temp);
     },
     addItem() {
-      const id = this.items.length + 1;
+      const id = Number(Math.random().toString().slice(2, 6));
 
       this.items.push({
         id,
         name: `Item ${id}`,
         value: `Value ${id}`,
       });
-    }
+    },
   },
 }
 </script>

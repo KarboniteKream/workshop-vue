@@ -25,8 +25,12 @@
     <div class="input-box">
       <div>
         <label for="question">Ask me a yes/no question!</label>
-        <input id="question" v-model="question.value" v-on:keyup.enter="answerQuestion()" />
+        <input id="question"
+               ref="questionInput"
+               v-model="question.value"
+               v-on:keyup.enter="answerQuestion()" />
         <button v-on:click="answerQuestion()">Answer me!</button>
+        <Button v-on:click="focusQuestionInput()">Focus question input</Button>
       </div>
 
       <span v-if="question.thinking">Thinking...</span>
@@ -109,6 +113,9 @@ export default {
       this.question.answer = response.data.answer;
       this.question.gif = response.data.image;
       this.question.thinking = false;
+    },
+    focusQuestionInput() {
+      this.$refs.questionInput.focus();
     },
   },
   computed: {

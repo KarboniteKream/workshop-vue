@@ -2,7 +2,7 @@
   <div>
     <label class="label" :for="id">{{ label }}</label>
     <input :id="id"
-           :value="inputValue"
+           :value="value"
            @input="startShouting($event.target.value)"
            :disabled="disabled" />
     <span class="hint">Hint: <slot></slot></span>
@@ -12,9 +12,13 @@
 <script>
 export default {
   name: 'ShoutingInput',
+  model: {
+    prop: 'whisper',
+    event: 'shout',
+  },
   props: {
     label: String,
-    value: String,
+    whisper: String,
     disabled: {
       type: Boolean,
       default: false,
@@ -22,15 +26,19 @@ export default {
   },
   data() {
     return {
-      id: Math.random().toString().slice(2, 6),
-      inputValue: this.value,
+      id: '_' + Math.random().toString(36).slice(2, 10),
     };
   },
   methods: {
     startShouting(value) {
-      this.$emit('input', value.toUpperCase());
+      this.$emit('shout', value.toUpperCase());
     }
   },
+  computed: {
+    value() {
+      return this.whisper;
+    }
+  }
 }
 </script>
 
