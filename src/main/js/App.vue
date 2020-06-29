@@ -5,7 +5,5 @@
 </template>
 
 <style lang="scss">
-.input-box {
-  margin: 20px 0;
-}
+// TODO
 </style>
